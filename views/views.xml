@@ -6,9 +6,10 @@
       <field name="model">library.libro</field>
       <field name="arch" type="xml">
         <list>
-          <field name="name"/>
-          <field name="value"/>
-          <field name="description"/>
+          <field name="title"/>
+          <field name="price"/>
+          <!-- https://github.com/odoo/odoo/tree/19.0/addons/web/static/src/views/fields -->
+          <field name="is_avalible" widget="boolean_toggle" readonly="1" />
         </list>
       </field>
     </record>
