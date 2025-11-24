@@ -11,3 +11,5 @@ class Libro(models.Model):
     is_avalible = fields.Boolean(string="¿Disponible?", default=False)
     public_date = fields.Date(string="Fecha de publicacion")
     created_timestamp = fields.Datetime(string="Fecha de creacion", default=fields.Datetime.now)
+    image = fields.Image(string="Imagen del libro", max_width=150, max_height=150)
+    author = fields.Char(string="Autor", required=True, default="Desconocido")
