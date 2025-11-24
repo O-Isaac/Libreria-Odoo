@@ -1,6 +1,6 @@
 <odoo>
   <data>
-    <!-- explicit list view definition -->
+    <!-- Listas -->
     <record model="ir.ui.view" id="library.list">
       <field name="name">Lista de libros</field>
       <field name="model">library.libro</field>
@@ -10,16 +10,86 @@
           <field name="price"/>
           <!-- https://github.com/odoo/odoo/tree/19.0/addons/web/static/src/views/fields -->
           <field name="is_avalible" widget="boolean_toggle" readonly="1" />
+          <field name="image" widget="image" options="{'size': [75,125]}"/>
         </list>
       </field>
     </record>
 
-    <!-- actions opening views on models -->
+    <record model="ir.ui.view" id="library.autor">
+      <field name="name">Lista de Autores</field>
+      <field name="model">library.autor</field>
+      <field name="arch" type="xml">
+        <list>
+          <field name="nombre" string="Nombre del autor"/>
+        </list>
+      </field>
+    </record>
+
+    <!-- Formularios -->
+    <record model="ir.ui.view" id="library.list_form">
+      <field name="name">Formulario Libro</field>
+      <field name="model">library.libro</field>
+      <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <notebook>
+                    <page string="Detalles del libro">
+                        <group>
+                            <field name="image" widget="image" options="{'size': [150,250]}"/>
+
+                            <group>
+                                <field name="title" />
+                                <field name="description" />
+                            </group>
+                            <group>
+                                <field name="pages" />
+                                <field name="price" />
+                            </group>
+                        </group>
+                        <group>
+                            <field name="is_avalible" widget="boolean_toggle" />
+                            <field name="public_date" />
+                        </group>
+                    </page>
+                    <page string="Autor">
+                        <field string="Nombre del autor" name="author" />
+                    </page>
+                     <page string="Mas pestañas">
+
+                    </page>
+                </notebook>
+            </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="library.autor_list_form">
+      <field name="name">Formulario Libro</field>
+      <field name="model">library.autor</field>
+      <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <group>
+                    <field name="nombre" string="Nombre del autor" />
+                </group>
+            </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- Acciones -->
     <record model="ir.actions.act_window" id="library.action_window">
       <field name="name">Libros</field>
       <field name="res_model">library.libro</field>
       <field name="view_mode">list,form</field>
     </record>
+
+    <record model="ir.actions.act_window" id="library.autor_action_window">
+      <field name="name">Autores</field>
+      <field name="res_model">library.autor</field>
+      <field name="view_mode">list,form</field>
+    </record>
+
 
     <!-- server action to the one above -->
 <!--
@@ -40,9 +110,11 @@
     <!-- Top menu item -->
     <menuitem name="library" id="library.menu_root"/>
     <!-- menu categories -->
-    <menuitem name="Menu 1" id="library.menu_1" parent="library.menu_root"/>
+    <menuitem name="Gestion" id="library.menu_1" parent="library.menu_root"/>
     <!-- actions -->
-    <menuitem name="List" id="library.menu_1_list" parent="library.menu_1"
+    <menuitem name="Libros" id="library.menu_1_list" parent="library.menu_1"
               action="library.action_window"/>
+    <menuitem name="Autores" id="library.menu_2_list" parent="library.menu_1"
+              action="library.autor_action_window"/>
   </data>
 </odoo>
